@@ -1,4 +1,4 @@
-package com.eneiascs.firebaseclient;
+package com.eneiascs.firebase.client;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

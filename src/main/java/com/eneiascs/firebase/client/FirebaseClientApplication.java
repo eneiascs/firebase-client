@@ -1,4 +1,4 @@
-package com.eneiascs.firebaseclient;
+package com.eneiascs.firebase.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
