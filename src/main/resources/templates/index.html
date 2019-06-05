@@ -1,0 +1,92 @@
+<html>
+
+<head></head>
+<body>
+	Firebase Messsaging Simple Application
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+	<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/5.9.1/firebase-functions.js"></script>
+
+	<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBxIfM84sCwYoA_PsMHBxaz5fYIoeMkhhs",
+    authDomain: "teste-9e939.firebaseapp.com",
+    databaseURL: "https://teste-9e939.firebaseio.com",
+    projectId: "teste-9e939",
+    storageBucket: "teste-9e939.appspot.com",
+    messagingSenderId: "209298460869",
+    appId: "1:209298460869:web:ae3c24e56f2f22bd"
+  };
+  // Initialize Firebase
+  let defaultProject = firebase.initializeApp(firebaseConfig);
+  console.log(defaultProject);
+  var messaging = firebase.messaging();
+  messaging.usePublicVapidKey("BL-qI2lkyb42dOgceA-584yHSihSxSPcEyktaVowGIcx51DIv9TKDIn71zBHLZzO8w_RJWC9ckGLFFKcXxSv8-4");
+ 
+  Notification.requestPermission().then(function(permission) {
+	  if (permission === 'granted') {
+	    console.log('Notification permission granted.');
+	    // TODO(developer): Retrieve an Instance ID token for use with FCM.
+	    // ...
+	    
+	    messaging.getToken().then(function(currentToken) {
+	    	  if (currentToken) {
+	    		  console.log(`Token: ${currentToken}`);
+	    		  
+	    	  } else {
+	    	    // Show permission request.
+	    	    console.log('No Instance ID token available. Request permission to generate one.');
+	    	    // Show permission UI.
+	    	    
+	    	  }
+	    	}).catch(function(err) {
+	    	  console.log('An error occurred while retrieving token. ', err);
+	    	  
+	    	  
+	    	});
+
+	    
+	    
+	    
+	    
+	  } else {
+	    console.log('Unable to get permission to notify.');
+	  }
+	 });	
+//Callback fired if Instance ID token is updated.
+  messaging.onTokenRefresh(function() {
+    messaging.getToken().then(function(refreshedToken) {
+      console.log('Token refreshed.');
+      // Indicate that the new Instance ID token has not yet been sent to the
+      // app server.
+    
+      // ...
+    }).catch(function(err) {
+      console.log('Unable to retrieve refreshed token ', err);
+      });
+  });
+  
+  messaging.onMessage(function(payload) {
+	  alert(payload.notification.body);
+	  console.log('Message received. ', payload);
+	  // ...
+	});
+  
+</script>
+</body>
+
+</html>
