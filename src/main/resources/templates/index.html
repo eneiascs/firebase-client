@@ -1,19 +1,28 @@
 <html>
 
 <head>
-	
+
 </head>
 <body>
 	<h1>Firebase Messsaging Sample Application</h1>
-	
-	<div >
-		<h5 id="message"/>
+
+	<div>
+		<h5 id="message" />
 	</div>
-	
+
+	<div id="topics">
+		<h2>Notification topics:</h2>
+		<th:block id="topics" th:each="topic : ${topics}">
+			<input type="checkbox" checked="true" th:value="${topic}" />
+			<label th:text="${topic}"></label>
+		</th:block>
+		<button id="register">Register</button>
+	</div>
+
 	<div id="notifications">
-		<h2 >Notifications:</h2>
+		<h2>Notifications:</h2>
 	</div>
-	
+
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
 
@@ -29,91 +38,11 @@
 		src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
 	<script
 		src="https://www.gstatic.com/firebasejs/5.9.1/firebase-functions.js"></script>
+	<script type="text/javascript" src="./js/index.js"></script>
 
 	<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBxIfM84sCwYoA_PsMHBxaz5fYIoeMkhhs",
-    authDomain: "teste-9e939.firebaseapp.com",
-    databaseURL: "https://teste-9e939.firebaseio.com",
-    projectId: "teste-9e939",
-    storageBucket: "teste-9e939.appspot.com",
-    messagingSenderId: "209298460869",
-    appId: "1:209298460869:web:ae3c24e56f2f22bd"
-  };
-  // Initialize Firebase
-  let defaultProject = firebase.initializeApp(firebaseConfig);
-  console.log(defaultProject);
-  let messaging = firebase.messaging();
-  messaging.usePublicVapidKey("BL-qI2lkyb42dOgceA-584yHSihSxSPcEyktaVowGIcx51DIv9TKDIn71zBHLZzO8w_RJWC9ckGLFFKcXxSv8-4");
- 
-  
-  let messageElement = document.getElementById('message');
-  let notificationsElement = document.getElementById('notifications');
-
-  
-  Notification.requestPermission().then(function(permission) {
-	  if (permission === 'granted') {
-		  messageElement.textContent = 'Notification permission granted.';
-		 console.log('Notification permission granted.');
-	    // TODO(developer): Retrieve an Instance ID token for use with FCM.
-	    // ...
-	    
-	    messaging.getToken().then(function(currentToken) {
-	    	  if (currentToken) {
-	    		  console.log(`Token: ${currentToken}`);
-		    	  messageElement.textContent = `Token: ${currentToken}`;
-
-	    		  
-	    	  } else {
-	    	    // Show permission request.
-	    	    console.log('No Instance ID token available. Request permission to generate one.');
-	    	    messageElement.textContent = 'No Instance ID token available. Request permission to generate one.';
-	    	    // Show permission UI.
-	    	    
-	    	  }
-	    	}).catch(function(err) {
-	    	  console.log('An error occurred while retrieving token. ', err);
-	    	  messageElement.textContent = 'An error occurred while retrieving token. ';
-	    	  
-	    	});
-
-	    
-	    
-	    
-	    
-	  } else {
-	    console.log('Unable to get permission to notify.');
-	    messageElement.textContent = 'Unable to get permission to notify.';
-	  }
-	 });	
-//Callback fired if Instance ID token is updated.
-  messaging.onTokenRefresh(function() {
-    messaging.getToken().then(function(refreshedToken) {
-      console.log('Token refreshed.');
-	  messageElement.textContent = `Token refreshed: ${refreshedToken}`;
-
-      // Indicate that the new Instance ID token has not yet been sent to the
-      // app server.
-    
-      // ...
-    }).catch(function(err) {
-      console.log('Unable to retrieve refreshed token ', err);
-	    messageElement.textContent = 'Unable to retrieve refreshed token ';
- 
-    });
-  });
-  
-  messaging.onMessage(function(payload) {
-	 
-	  let html = `<div><h3>${payload.notification.title}: ${payload.notification.body}</h3></div>`
-	  notificationsElement.insertAdjacentHTML('beforeend',html);
-	  alert(payload.notification.body);
-	  console.log('Message received. ', payload);
-	  // ...
-	});
-  
-</script>
+		
+	</script>
 </body>
 
 </html>
