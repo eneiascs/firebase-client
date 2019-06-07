@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 
 import com.eneiascs.firebase.client.domain.dto.RegistrationDTO;
+import com.eneiascs.firebase.client.domain.dto.TopicDTO;
 import com.eneiascs.firebase.client.service.RestClientService;
 
 @RestController
@@ -24,7 +25,7 @@ public class RegistrationController {
 		return restClientService.register(registration);
 	}
 	@GetMapping("/topics")
-	public List<String> topics() {
+	public List<TopicDTO> topics() {
 		
 		return restClientService.getTopics();
 	}

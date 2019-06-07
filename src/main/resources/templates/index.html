@@ -13,8 +13,8 @@
 	<div id="topics">
 		<h2>Notification topics:</h2>
 		<th:block id="topics" th:each="topic : ${topics}">
-			<input type="checkbox" checked="true" th:value="${topic}" />
-			<label th:text="${topic}"></label>
+			<input type="checkbox" checked="true" th:value="${topic.name}" />
+			<label th:text="${topic.description}"></label>
 		</th:block>
 		<button id="register">Register</button>
 	</div>

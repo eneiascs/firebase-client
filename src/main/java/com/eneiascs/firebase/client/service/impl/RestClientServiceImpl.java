@@ -13,6 +13,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.eneiascs.firebase.client.domain.dto.RegistrationDTO;
+import com.eneiascs.firebase.client.domain.dto.TopicDTO;
 import com.eneiascs.firebase.client.service.RestClientService;
 
 @Service
@@ -32,16 +33,16 @@ public class RestClientServiceImpl implements RestClientService {
 	}
 
 	@Override
-	public List<String> getTopics() {
+	public List<TopicDTO> getTopics() {
 	     
 	     
 	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<List<String>> response = restTemplate.exchange(
+	    ResponseEntity<List<TopicDTO>> response = restTemplate.exchange(
 	    		topicsUrl,
 	      HttpMethod.GET,
 	      null,
-	      new ParameterizedTypeReference<List<String>>(){});
-	    List<String> topics = response.getBody();
+	      new ParameterizedTypeReference<List<TopicDTO>>(){});
+	    List<TopicDTO> topics = response.getBody();
 	 
 	  
 		return topics;
